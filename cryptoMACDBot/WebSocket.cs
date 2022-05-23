@@ -1,48 +1,151 @@
 ﻿using System;
-using System.Collections.Generic;
-using CoinbasePro.WebSocket;
-using CoinbasePro.WebSocket.Models.Response;
-using CoinbasePro.WebSocket.Types;
+using System.Security.Authentication;
+using System.Threading.Tasks;
+using Coinbase.Pro.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SuperSocket.ClientEngine;
+using WebSocket4Net;
+
 
 namespace cryptoMACDBot
 {
-    public class WebSocket
+    public class WebSocketConfig
     {
-        public WebSocket(Client client)
+        public string ApiKey { get; set; }
+        public string Secret { get; set; }
+        public string Passphrase { get; set; }
+
+        public bool UseTimeApi { get; set; } = false;
+        public string SocketUri { get; set; } = CoinbaseProWebSocket.Endpoint;
+
+        public void EnsureValid()
         {
-            this.client = client;
+        }
+    }
 
-            //use the websocket feed
-            var productTypes = new List<string>() { "BTC-USD" };
-            var channels = new List<ChannelType>() { ChannelType.Heartbeat, ChannelType.Ticker, ChannelType.User }; // When not providing any channels, the socket will subscribe to all channels
-
-            this.webSocket = client.client.WebSocket;
-            webSocket.Start(productTypes, channels, 1);
-            webSocket.OnHeartbeatReceived += WebSocket_OnHeartbeatReceived;
-            webSocket.OnOpenReceived += WebSocket_OnOpenReceived;
-            webSocket.OnTickerReceived += WebSocket_OnTickerReceived;
+    public class ConnectResult
+    {
+        public ConnectResult(bool success, object sender, EventArgs eventArgs)
+        {
+            this.Success = success;
+            this.Sender = sender;
+            this.EventArgs = eventArgs;
         }
 
-        private static void WebSocket_OnHeartbeatReceived(object sender, WebfeedEventArgs<Heartbeat> e)
+        public bool Success { get; }
+        public object Sender { get; }
+        public EventArgs EventArgs { get; }
+    }
+
+    public class CoinbaseProWebSocket : IDisposable
+    {
+        public const string Endpoint = "wss://ws-feed.pro.coinbase.com";
+
+        public WebSocket RawSocket { get; set; }
+
+        public CoinbaseProWebSocket(WebSocketConfig config = null)
         {
-            throw new NotImplementedException();
+            this.Config = config ?? new WebSocketConfig();
         }
 
-        private static void WebSocket_OnOpenReceived(object sender, WebfeedEventArgs<Open> e)
+        public WebSocketConfig Config { get; }
+
+        protected TaskCompletionSource<ConnectResult> connectingTcs;
+
+        protected IProxyConnector Proxy { get; set; }
+
+        /// <summary>
+        /// Connect the websocket to Coinbase Pro.
+        /// </summary>
+        /// <returns></returns>
+        public Task<ConnectResult> ConnectAsync()
         {
-            throw new NotImplementedException();
+            if (this.RawSocket != null) throw new InvalidOperationException(
+              $"The {nameof(RawSocket)} is already created from a previous {nameof(ConnectAsync)} call. " +
+              $"If you get this exception, you'll need to dispose of this {nameof(CoinbaseProWebSocket)} and create a new instance. " +
+              $"Don't call {nameof(ConnectAsync)} multiple times on the same instance.");
+
+            this.connectingTcs = new TaskCompletionSource<ConnectResult>();
+
+            if (this.RawSocket is null)
+            {
+                this.RawSocket ??= new WebSocket(this.Config.SocketUri);
+                this.RawSocket.Proxy = this.Proxy;
+                this.RawSocket.Security.EnabledSslProtocols = SslProtocols.Tls12;
+            }
+
+            this.RawSocket.Opened += RawSocket_Opened;
+            this.RawSocket.Error += RawSocket_Error;
+            this.RawSocket.Open();
+
+            Console.WriteLine("Opened WebSocket Connection!");
+
+            return this.connectingTcs.Task;
         }
 
-        private static void WebSocket_OnTickerReceived(object sender, WebfeedEventArgs<Ticker> e)
+        private void RawSocket_Error(object sender, ErrorEventArgs e)
         {
-            Console.WriteLine(e.LastOrder.Open24H);
+            TrySetConnectResult(false, sender, e);
+        }
+
+        private void RawSocket_Opened(object sender, EventArgs e)
+        {
+            TrySetConnectResult(true, sender, e);
+        }
+
+        protected void TrySetConnectResult(bool result, object sender, EventArgs args)
+        {
+            var connectResult = new ConnectResult(result, sender, args);
+
+            if (sender is WebSocket socket)
+            {
+                socket.Opened -= RawSocket_Opened;
+                socket.Error -= RawSocket_Error;
+            }
+
+            Task.Run(() => this.connectingTcs.TrySetResult(connectResult));
+        }
+
+        public void EnableFiddlerDebugProxy(IProxyConnector proxy)
+        {
+            this.Proxy = proxy;
+        }
+
+        public async Task SubscribeAsync(Subscription subscription)
+        {
+            if (this.RawSocket.State != WebSocketState.Open) throw new InvalidOperationException("Socket must be connected.");
+
+            subscription.ExtraJson.Add("type", JToken.FromObject(MessageType.Subscribe));
+
+            string subJson;
+            if (!string.IsNullOrWhiteSpace(this.Config.ApiKey))
+            {
+                subJson = await WebSocketHelper.MakeAuthenticatedSubscriptionAsync(subscription, this.Config)
+                   .ConfigureAwait(false);
+            }
+            else
+            {
+                subJson = JsonConvert.SerializeObject(subscription);
+            }
+
+            this.RawSocket.Send(subJson);
+        }
+
+        public void Unsubscribe(Subscription subscription)
+        {
+            subscription.ExtraJson.Add("type", JToken.FromObject(MessageType.Unsubscribe));
+
+            var json = JsonConvert.SerializeObject(subscription);
+
+            this.RawSocket.Send(json);
         }
 
 
-
-        public IWebSocket webSocket { get; }
-
-        public Client client { get;}
-     
+        public void Dispose()
+        {
+            this.RawSocket?.Dispose();
+            this.RawSocket = null;
+        }
     }
 }

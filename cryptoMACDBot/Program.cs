@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Coinbase.Pro.Models;
+using Newtonsoft.Json.Linq;
 
 namespace cryptoMACDBot
 {
@@ -7,15 +9,14 @@ namespace cryptoMACDBot
     {
         static async Task Main(string[] args)
         {
-            string apiKey = "e6c12defbf45a78e1bc24284197a9bcb";
-            string apiSecret = "rFvCHPXBPCAQ8iM9SKmW3v6er+jtYVHsbdv6VUp3yurdSHs1nKNM1eXv8FUeZ46CuBUFpBTdB6FUHP0mCD+TPA==";
-            string passphrase = "gs1kqbwt3i";
+            string apiKey = "07661b27d60a86197091a49404aff506";
+            string apiSecret = "uEthX/aoXnXu8y9BP6r9Bj6iMcs6of0K45JIDn3fKi2rGqRNXnkeLQmqjOdFLEU8fqR4CeKGr2Ssff76TPQFog==";
+            string passphrase = "sysr3fz9sbb";
 
             var client = new Client(apiKey, apiSecret, passphrase);
-            var accounts = await client.GetAllAccounts2();
-            WebSocket webSocket = new WebSocket(client);
-            Console.WriteLine(webSocket.GetHashCode());
- 
+            CandleMaker candleMaker = new CandleMaker(client);
+            await candleMaker.Connect();
+
         }
 
     }

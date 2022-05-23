@@ -19,4 +19,6 @@
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/bin/Debug/netcoreapp3.1/SuperSocket.ClientEngine.dll
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/bin/Debug/netcoreapp3.1/WebSocket4Net.dll
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/obj/Debug/netcoreapp3.1/cryptoMACDBot.csproj.CopyComplete
-/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/bin/Debug/netcoreapp3.1/cryptoMACDBot
+/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/bin/Debug/netcoreapp3.1/Coinbase.Pro.dll
+/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/bin/Debug/netcoreapp3.1/Flurl.dll
+/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/bin/Debug/netcoreapp3.1/Flurl.Http.dll

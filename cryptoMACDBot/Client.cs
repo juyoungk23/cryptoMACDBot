@@ -22,17 +22,11 @@ namespace cryptoMACDBot
 
         public string apiKey { get;}
 
-        private string apiSecret { get; }
+        public string apiSecret { get; }
 
-        private string passphrase { get; }
+        public string passphrase { get; }
 
-        public async Task<List<CoinbasePro.Services.Accounts.Models.Account>> GetAllAccounts()
-        {
-            var allAccounts = await client.AccountsService.GetAllAccountsAsync();
-            return (List<CoinbasePro.Services.Accounts.Models.Account>) allAccounts;
-        }
-
-        public async Task<List<CoinbasePro.Services.CoinbaseAccounts.Models.CoinbaseAccount>> GetAllAccounts2()
+        public async Task<List<CoinbasePro.Services.CoinbaseAccounts.Models.CoinbaseAccount>> GetAllAccounts()
         {
             var allAccounts = await client.CoinbaseAccountsService.GetAllAccountsAsync();
 
