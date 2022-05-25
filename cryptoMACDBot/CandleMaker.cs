@@ -10,14 +10,15 @@ namespace cryptoMACDBot
     public class CandleMaker
     {
 
-        private CoinbaseProWebSocket socket;
-
+        public CoinbaseProWebSocket socket;
         private Dictionary<string, bool> minutesProcessed = new Dictionary<string, bool>(); 
-        private List<Candle> minuteCandlesticks = new List<Candle>();
+        public List<Candle> minuteCandlesticks = new List<Candle>();
+        public List<Candle> processedCandles = new List<Candle>();
         private TickerEvent currentTick;
         private TickerEvent previousTick;
+        private int timeframe;
 
-        public CandleMaker(Client client)
+        public CandleMaker(Client client, int timeframe)
         {
             socket = new CoinbaseProWebSocket(new WebSocketConfig
             {
@@ -25,16 +26,12 @@ namespace cryptoMACDBot
                 ApiKey = client.apiKey,
                 Secret = client.apiSecret,
                 Passphrase = client.passphrase,
-                SocketUri = "wss://ws-feed.pro.coinbase.com"
+                SocketUri = "wss://ws-feed.exchange.coinbase.com"
             }) ;
 
-        }
+            this.timeframe = timeframe;
 
-        public async void CollectData()
-        {
-            await Connect();
         }
-
 
         public async Task Connect()
         {
@@ -57,7 +54,7 @@ namespace cryptoMACDBot
                      JObject.FromObject(
                         new Channel
                            {
-                              Name = "ticker",
+                              Name = "ticker_batch",
                               ProductIds = {"BTC-USD"}
                            })
                   }
@@ -66,14 +63,26 @@ namespace cryptoMACDBot
             await socket.SubscribeAsync(sub);
 
             socket.RawSocket.MessageReceived += RawSocket_MessageReceived;
-
-            await Task.Delay(TimeSpan.FromMinutes(1));
+       
+            socket.RawSocket.EnableAutoSendPing = true;
+            socket.RawSocket.AutoSendPingInterval = 1;
+            
+            while (socket.RawSocket.LastActiveTime.Second - DateTime.Now.Second < 30)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(30));
+            }
 
         }
 
+        public void addEventHandler(EventHandler<WebSocket4Net.MessageReceivedEventArgs> method)
+        {
+            object sender = this.socket;
+            socket.RawSocket.MessageReceived += method;
+
+        }
+ 
         private void RawSocket_MessageReceived(object sender, WebSocket4Net.MessageReceivedEventArgs e)
         {
-
       
             if (WebSocketHelper.TryParse(e.Message, out var msg))
             {
@@ -86,35 +95,39 @@ namespace cryptoMACDBot
                     DateTimeOffset date = tick.Time;
                     date = date.ToLocalTime();
                     string formattedTime = $"{date.Month}/{date.Day}/{date.Year} {date.Hour}:{date.Minute}";
-
-
-                    // Console.WriteLine($"{tick.ProductId} is {tick.Price} at {formattedTime}");
-
+                   
                     if (!minutesProcessed.ContainsKey(formattedTime))
                     {
+
                         minutesProcessed[formattedTime] = true;
 
-                        Candle minuteCandle = new Candle(date.Minute, tick.Price, tick.Price, tick.Price);
+
+                        Candle minuteCandle = new Candle(date.DateTime, tick.Price, tick.Price, tick.Price);
                         minuteCandlesticks.Add(minuteCandle);
+
+                        if (minuteCandle.Date.Minute % timeframe == 0)
+                        {
+                            processedCandles.Add(minuteCandle);
+                            Console.WriteLine("New Candle");
+                        }
 
                     }
 
-                    if (minuteCandlesticks.Count > 1)
+                    // if 2 or more candles, 
+                    if (minuteCandlesticks.Count >= 2)
                     {
-                        minuteCandlesticks[minuteCandlesticks.Count - 1].close = previousTick.Price;
-
+                        minuteCandlesticks[minuteCandlesticks.Count - 2].Close = previousTick.Price;
                         Candle currentCandle = minuteCandlesticks[minuteCandlesticks.Count - 1];
 
-                        if (currentTick.Price > currentCandle.high)
+                        if (currentTick.Price > currentCandle.High)
                         {
-                            currentCandle.high = currentTick.Price;
+                            currentCandle.High = currentTick.Price;
                         }
 
-                        if (currentTick.Price < currentCandle.low)
+                        if (currentTick.Price < currentCandle.Low)
                         {
-                            currentCandle.low = currentTick.Price;
+                            currentCandle.Low = currentTick.Price;
                         }
-                        Console.WriteLine($"Candle Open: {currentCandle.open}, High: {currentCandle.high}, Low: {currentCandle.low}, Close: {currentCandle.close}");
                     }
                 }
             }

@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{4BA67F86-2FEF-4109-BD45-9AD2C32EFF9E}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="cryptoMACDBot/CandleMaker.cs">
     <Files>
-      <File FileName="cryptoMACDBot/Program.cs" Line="13" Column="25" />
-      <File FileName="cryptoMACDBot/CandleMaker.cs" Line="100" Column="22" />
-      <File FileName="cryptoMACDBot/Candle.cs" Line="28" Column="10" />
+      <File FileName="cryptoMACDBot/Program.cs" Line="15" Column="1" />
+      <File FileName="cryptoMACDBot/CandleMaker.cs" Line="71" Column="1" />
+      <File FileName="cryptoMACDBot/Candle.cs" />
       <File FileName="cryptoMACDBot/Websocket.cs" />
       <File FileName="cryptoMACDBot/Client.cs" />
       <File FileName="cryptoMACDBotNUnitTests/WebSocketTests.cs" />

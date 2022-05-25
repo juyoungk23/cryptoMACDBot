@@ -22,3 +22,4 @@
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/bin/Debug/netcoreapp3.1/Coinbase.Pro.dll
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/bin/Debug/netcoreapp3.1/Flurl.dll
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/bin/Debug/netcoreapp3.1/Flurl.Http.dll
+/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/bin/Debug/netcoreapp3.1/cryptoMACDBot

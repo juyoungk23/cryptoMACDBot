@@ -1,35 +1,40 @@
 ﻿using System;
+using Skender.Stock.Indicators;
+
 namespace cryptoMACDBot
 {
-    public class Candle
+    public class Candle: IQuote
     {
-        public Candle(int minute, decimal open, decimal high, decimal low)
+        public Candle(DateTime date, decimal open, decimal high, decimal low)
         {
-            this.minute = minute;
-            this.open = open;
-            this.high = high;
-            this.low = low;
+            Date = date;
+            Open = open;
+            High = high;
+            Low = low;
         }
 
-        public int minute { get; }
-        public decimal open { get; }
-        public decimal high { get; set; }
-        public decimal low { get; set; }
-        public decimal close { get; set; }
+        public DateTime Date;
+        public decimal Open { get; }
+        public decimal High { get; set; }
+        public decimal Low { get; set; }
+        public decimal Close { get; set; }
+        public decimal Volume { get; set; }
+
+        DateTime IQuote.Date => throw new NotImplementedException();
 
         public void setHigh(decimal high)
         {
-            this.high = high;
+            High = high;
         }
 
         public void setLow(decimal low)
         {
-            this.low = low;
+            Low = low;
         }
 
         public void setClose(decimal close)
         {
-            this.close = close;
+            Close = close;
         }
     }
 }

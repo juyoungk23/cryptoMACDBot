@@ -1,0 +1,144 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/cryptoMACDBotNUnitTests.csproj": {}
+  },
+  "projects": {
+    "/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/cryptoMACDBot.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/cryptoMACDBot.csproj",
+        "projectName": "cryptoMACDBot",
+        "projectPath": "/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/cryptoMACDBot.csproj",
+        "packagesPath": "/Users/juyoungkim/.nuget/packages/",
+        "outputPath": "/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/juyoungkim/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Coinbase.Pro": {
+              "target": "Package",
+              "version": "[4.2.2, )"
+            },
+            "GDAX.Api.ClientLibrary": {
+              "target": "Package",
+              "version": "[1.0.51, )"
+            },
+            "Skender.Stock.Indicators": {
+              "target": "Package",
+              "version": "[1.23.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.300/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/cryptoMACDBotNUnitTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/cryptoMACDBotNUnitTests.csproj",
+        "projectName": "cryptoMACDBotNUnitTests",
+        "projectPath": "/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/cryptoMACDBotNUnitTests.csproj",
+        "packagesPath": "/Users/juyoungkim/.nuget/packages/",
+        "outputPath": "/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/juyoungkim/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/cryptoMACDBot.csproj": {
+                "projectPath": "/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/cryptoMACDBot.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.5.0, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.13.3, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.2.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.300/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

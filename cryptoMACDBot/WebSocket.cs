@@ -40,7 +40,7 @@ namespace cryptoMACDBot
 
     public class CoinbaseProWebSocket : IDisposable
     {
-        public const string Endpoint = "wss://ws-feed.pro.coinbase.com";
+        public const string Endpoint = "wss://ws-feed.exchange.coinbase.com";
 
         public WebSocket RawSocket { get; set; }
 
@@ -79,6 +79,9 @@ namespace cryptoMACDBot
             this.RawSocket.Error += RawSocket_Error;
             this.RawSocket.Open();
 
+            this.RawSocket.EnableAutoSendPing = true;
+            this.RawSocket.AutoSendPingInterval = 1;
+
             Console.WriteLine("Opened WebSocket Connection!");
 
             return this.connectingTcs.Task;
@@ -86,11 +89,13 @@ namespace cryptoMACDBot
 
         private void RawSocket_Error(object sender, ErrorEventArgs e)
         {
+            Console.WriteLine("Raw Socket Error");
             TrySetConnectResult(false, sender, e);
         }
 
         private void RawSocket_Opened(object sender, EventArgs e)
         {
+            Console.WriteLine("Raw Socket Opened");
             TrySetConnectResult(true, sender, e);
         }
 
@@ -134,6 +139,7 @@ namespace cryptoMACDBot
 
         public void Unsubscribe(Subscription subscription)
         {
+        
             subscription.ExtraJson.Add("type", JToken.FromObject(MessageType.Unsubscribe));
 
             var json = JsonConvert.SerializeObject(subscription);
