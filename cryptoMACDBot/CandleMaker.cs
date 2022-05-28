@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Coinbase.Pro.Models;
-using Coinbase.Pro.WebSockets;
 using Newtonsoft.Json.Linq;
 
 namespace cryptoMACDBot
@@ -76,9 +75,7 @@ namespace cryptoMACDBot
 
         public void addEventHandler(EventHandler<WebSocket4Net.MessageReceivedEventArgs> method)
         {
-            object sender = this.socket;
             socket.RawSocket.MessageReceived += method;
-
         }
  
         private void RawSocket_MessageReceived(object sender, WebSocket4Net.MessageReceivedEventArgs e)

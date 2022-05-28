@@ -15,7 +15,6 @@ namespace cryptoMACDBot
         public string ApiKey { get; set; }
         public string Secret { get; set; }
         public string Passphrase { get; set; }
-
         public bool UseTimeApi { get; set; } = false;
         public string SocketUri { get; set; } = CoinbaseProWebSocket.Endpoint;
 

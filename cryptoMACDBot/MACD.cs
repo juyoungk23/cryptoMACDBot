@@ -1,50 +1,36 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Coinbase.Pro.Models;
 using Skender.Stock.Indicators;
-using WebSocket4Net;
 
 namespace cryptoMACDBot
 {
     public class MACD
     {
-        public MACD(CandleMaker candleMaker)
+        public MACD(List<Candle> candles)
         {
-            this.candleMaker = candleMaker;
-            processedCandles = candleMaker.processedCandles;
-            candleMaker.addEventHandler(randomMethod);
+            this.candles = candles;
         }
 
-        private void randomMethod(object sender, WebSocket4Net.MessageReceivedEventArgs e)
+        public int shortPeriod = 12;
+        public int longPeriod = 26;
+
+        public IEnumerable<MacdResult> GetMACD()
         {
-
-
-            if (WebSocketHelper.TryParse(e.Message, out var msg))
-            {
-                if (msg is TickerEvent tick)
-                {
-                }
-
-            }
+            return candles.GetMacd(shortPeriod, longPeriod);
         }
 
+        public List<Candle> candles;
 
-
-        public void getMACD()
+        public double GetMACDblue()
         {
-            Console.WriteLine("I am here");
-            processedCandles.GetMacd(12, 26);
+            return (double) GetMACD().Last().Macd;
         }
 
-
-        public List<decimal> MACDblue;
-        public List<decimal> MACDorange;
-
-
-        public CandleMaker candleMaker;
-        public IEnumerable<Candle> processedCandles { get; set; }
-        
+        public double GetMACDorange()
+        {
+            return (double) GetMACD().Last().Signal;
+        }
     }
 }
 

@@ -3,7 +3,7 @@ using Skender.Stock.Indicators;
 
 namespace cryptoMACDBot
 {
-    public class Candle: IQuote
+    public class Candle : IQuote
     {
         public Candle(DateTime date, decimal open, decimal high, decimal low)
         {
@@ -20,7 +20,7 @@ namespace cryptoMACDBot
         public decimal Close { get; set; }
         public decimal Volume { get; set; }
 
-        DateTime IQuote.Date => throw new NotImplementedException();
+        DateTime IQuote.Date => this.Date;
 
         public void setHigh(decimal high)
         {
