@@ -12,25 +12,45 @@ namespace cryptoMACDBot
             this.candles = candles;
         }
 
-        public int shortPeriod = 12;
-        public int longPeriod = 26;
+        public int fastPeriods = 12;
+        public int slowPeriods = 26;
+        public int signalPeriods = 9;
 
-        public IEnumerable<MacdResult> GetMACD()
+        public List<Candle> candles = new List<Candle>();
+
+        public void Update(List<Candle> candles)
         {
-            return candles.GetMacd(shortPeriod, longPeriod);
+            this.candles = candles;
         }
 
-        public List<Candle> candles;
-
-        public double GetMACDblue()
+        public IEnumerable<MacdResult> GetMACDResults()
         {
-            return (double) GetMACD().Last().Macd;
+            return candles.GetMacd(fastPeriods, slowPeriods, signalPeriods);
         }
 
-        public double GetMACDorange()
+        public decimal? GetMACDblue()
         {
-            return (double) GetMACD().Last().Signal;
+            return (decimal?) GetMACDResults().Last().Macd;
         }
+
+        public decimal? GetMACDblueAtIndex(int index)
+        {
+            return (decimal?)GetMACDResults().ElementAt(index).Macd;
+        }
+
+        public decimal? GetMACDorange()
+        {
+           return (decimal?) GetMACDResults().Last().Signal;
+           
+        }
+
+        public decimal? GetMACDorangeAtIndex(int index)
+        {
+            return (decimal?)GetMACDResults().ElementAt(index).Signal;
+        }
+
+
+
     }
 }
 

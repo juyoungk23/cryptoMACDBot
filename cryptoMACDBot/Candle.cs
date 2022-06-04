@@ -21,20 +21,5 @@ namespace cryptoMACDBot
         public decimal Volume { get; set; }
 
         DateTime IQuote.Date => this.Date;
-
-        public void setHigh(decimal high)
-        {
-            High = high;
-        }
-
-        public void setLow(decimal low)
-        {
-            Low = low;
-        }
-
-        public void setClose(decimal close)
-        {
-            Close = close;
-        }
     }
 }

@@ -1,6 +1,7 @@
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/bin/Debug/netcoreapp3.1/cryptoMACDBot.deps.json
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/bin/Debug/netcoreapp3.1/cryptoMACDBot.runtimeconfig.json
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/bin/Debug/netcoreapp3.1/cryptoMACDBot.runtimeconfig.dev.json
+/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/bin/Debug/netcoreapp3.1/cryptoMACDBot
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/bin/Debug/netcoreapp3.1/NUnit3.TestAdapter.dll
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/bin/Debug/netcoreapp3.1/NUnit3.TestAdapter.pdb
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/bin/Debug/netcoreapp3.1/nunit.engine.dll
@@ -109,4 +110,3 @@
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/obj/Debug/netcoreapp3.1/cryptoMACDBotNUnitTests.dll
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/obj/Debug/netcoreapp3.1/cryptoMACDBotNUnitTests.pdb
 /Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/obj/Debug/netcoreapp3.1/cryptoMACDBotNUnitTests.genruntimeconfig.cache
-/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBotNUnitTests/bin/Debug/netcoreapp3.1/cryptoMACDBot

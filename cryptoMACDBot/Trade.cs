@@ -4,7 +4,7 @@ namespace cryptoMACDBot
 	public class Trade
 	{
 	
-        public Trade(decimal amount, double stoploss, double target, double mainTarget, string productPair, CoinbasePro.Services.Orders.Types.OrderSide orderSide, DateTime date, decimal priceAtTrade)
+        public Trade(decimal amount, decimal stoploss, decimal target, decimal mainTarget, string productPair, CoinbasePro.Services.Orders.Types.OrderSide orderSide, DateTime date, decimal priceAtTrade)
         {
             this.date = date;
             this.amount = amount;
@@ -16,21 +16,25 @@ namespace cryptoMACDBot
             this.priceAtTrade = priceAtTrade;
         }
 
+        public bool open = true;
+
+        public bool inPosition = false;
+
         public DateTime date { get; set; }
 
 		public decimal amount { get; set; }
 
-		public double stoploss { get; set; }
+		public decimal stoploss { get; set; }
 
-		public double target { get; set; }
+		public decimal target { get; set; }
 
-		public double mainTarget { get; set; }
-
-		public bool open = true;
+		public decimal mainTarget { get; set; }
 
         public CoinbasePro.Services.Orders.Types.OrderSide orderSide;
 
         public string productPair { get; set; }
+
+        public decimal priceAtTrade;
 
         public bool stoplossHit = false;
 
@@ -38,7 +42,19 @@ namespace cryptoMACDBot
 
         public bool mainTargetHit = false;
 
-        public decimal priceAtTrade;
+
+
+
+
+        //public int findTradeFactor()
+        //{
+        //    if (orderSide.Equals(CoinbasePro.Services.Orders.Types.OrderSide.Sell))
+        //    {
+        //        return -1;
+        //    }
+
+        //    return 1;
+        //}
 
     }
 }

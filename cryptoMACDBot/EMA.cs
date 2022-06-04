@@ -8,7 +8,7 @@ namespace cryptoMACDBot
 	public class EMA
 	{
 
-		private List<Candle> candles;
+		public List<Candle> candles;
 		private int lookbackPeriod;
 
 		public EMA(List<Candle> candles, int lookbackPeriod)
@@ -17,14 +17,24 @@ namespace cryptoMACDBot
 			this.lookbackPeriod = lookbackPeriod;
 		}
 
-		public IEnumerable<EmaResult> GetEMA()
+		public void Update(List<Candle> candles)
+		{
+			this.candles = candles;
+		}
+
+		private IEnumerable<EmaResult> GetEMAResults()
         {
 			return candles.GetEma(lookbackPeriod);
 		}
 
         public decimal GetLatestEMA()
         {
-			return (decimal) GetEMA().Last().Ema;
+			return (decimal) GetEMAResults().Last().Ema;
+        }
+
+		public decimal GetEMAatIndex(int index)
+        {
+			return (decimal) GetEMAResults().ElementAt(index).Ema;
         }
     }
 }

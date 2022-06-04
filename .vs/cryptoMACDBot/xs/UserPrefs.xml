@@ -1,20 +1,22 @@
 ﻿<Properties StartupConfiguration="{4BA67F86-2FEF-4109-BD45-9AD2C32EFF9E}|Default">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.cryptoMACDBot PreferredExecutionTarget="MonoDevelop.Default" />
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.cryptoMACDBot PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/juyoungkim/Documents/Projects/cryptoMACDBot/cryptoMACDBot/Program.cs" relfile="cryptoMACDBot/Program.cs" line="124" column="33" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workbench ActiveDocument="cryptoMACDBotNUnitTests/testTemplate.cs">
     <Files>
-      <File FileName="cryptoMACDBot/Client.cs" Line="1" Column="1" />
-      <File FileName="cryptoMACDBot/Program.cs" Line="205" Column="19" />
-      <File FileName="cryptoMACDBot/EMA.cs" Line="22" Column="40" />
-      <File FileName="cryptoMACDBot/CandleMaker.cs" Line="4" Column="27" />
-      <File FileName="cryptoMACDBot/WebSocket.cs" Line="1" Column="1" />
-      <File FileName="cryptoMACDBot/Indicator.cs" Line="7" Column="1" />
-      <File FileName="cryptoMACDBot/Candle.cs" Line="23" Column="32" />
-      <File FileName="cryptoMACDBot/MACD.cs" Line="33" Column="54" />
-      <File FileName="cryptoMACDBotNUnitTests/WebSocketTests.cs" Line="152" Column="1" />
-      <File FileName="cryptoMACDBotNUnitTests/testTemplate.cs" Line="56" Column="10" />
+      <File FileName="cryptoMACDBot/MACD.cs" Line="31" Column="10" />
+      <File FileName="cryptoMACDBotNUnitTests/WebSocketTests.cs" Line="55" Column="25" />
+      <File FileName="cryptoMACDBotNUnitTests/testTemplate.cs" Line="72" Column="12" />
+      <File FileName="cryptoMACDBot/Client.cs" Line="17" Column="67" />
+      <File FileName="cryptoMACDBot/Candle.cs" Line="23" Column="43" />
+      <File FileName="cryptoMACDBot/Trade.cs" Line="35" Column="37" />
+      <File FileName="cryptoMACDBot/Program.cs" Line="89" Column="43" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -23,7 +25,6 @@
             <Node name="cryptoMACDBot" expanded="True" />
             <Node name="cryptoMACDBotNUnitTests" expanded="True">
               <Node name="Dependencies" expanded="True" />
-              <Node name="testTemplate.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -33,18 +34,9 @@
       </Pad>
       <Pad Id="MonoDevelop.UnitTesting.TestPad">
         <State name="__root__">
-          <Node name="cryptoMACDBot" expanded="True" selected="True">
-            <Node name="cryptoMACDBotNUnitTests" expanded="True">
-              <Node name="cryptoMACDBotNUnitTests" expanded="True">
-                <Node name="MACDTests" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
+          <Node name="cryptoMACDBot" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>
